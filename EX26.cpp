@@ -7,7 +7,7 @@ int return_int (string value_str, map<string, int> &int_table) {
         return stoi(value_str);
     }
     else {
-        int_table.at(value_str);
+        return int_table.at(value_str);
     }
 }
 
@@ -26,11 +26,12 @@ vector<int> return_vec (vector<string> &vec_str, map<string, vector<int>> &vec_t
                 continue;
             }
             else if (val == "]") {
-                return result;
+                break;
             }
 
             result.push_back(return_int(val, int_table));
         }
+        return result;
 }
 
 
@@ -51,7 +52,7 @@ int calc_int(int a, int b, string op) {
 
 vector<int> calc_vec(vector<int> &vec_a, vector<int> &vec_b, string op) {
     vector<int> result;
-    for (int i; i < vec_a.size(); i ++) {
+    for (int i=0; i < vec_a.size(); i ++) {
         result.push_back(calc_int(vec_a.at(i), vec_b.at(i), op));
     }
     return result;
@@ -118,12 +119,18 @@ vector<int> formula_vec (map<string, vector<int>> &vec_table, map<string, int> &
     }
 
     while (symbol != ";") {
+        vector<string> string_vec;
+
          while (true) {
             cin >> string_in;
 
             if (symbols.count(string_in)) {
                 break;
             }
+            if (string_in == ",") {
+                continue;
+            }
+
         string_vec.push_back(string_in);
         }
         
